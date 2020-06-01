@@ -1,10 +1,15 @@
 PROGRAM = GeoRabbit
-CC = g++
-LDLIBS = -lglut -lGLU -lGL -lm
+CC = gcc
+CFLAGS = -g -Wall
+LDFLAGS=  -lGL -lGLU -lglut -lm
+OBJECTS = stone.o callback_fje.o texture.o image.o main.o
 
-$(PROGRAM): rabbit.o
-	$(CC) -o $(PROGRAM) $^ $(LDLIBS)
-main.o: main.cpp
+svi: $(PROGRAM)
+
+$(PROGRAM): $(OBJECTS) 
+	$(CC) -o $(PROGRAM) $(OBJECTS) $(LDFLAGS)
+
+.PHONY: clean
 
 clean:
-	-rm *.o $(PROGRAM)
+	-rm -f *.o $(PROGRAM) *~

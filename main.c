@@ -6,6 +6,8 @@
 #include "texture.h"
 
 
+
+
 int main(int argc, char **argv){
 
     /* Inicijalizuje se GLUT.*/
@@ -16,7 +18,8 @@ int main(int argc, char **argv){
     /*Inicijalizacija prozora*/
     glutInitWindowPosition(0,0);
     glutCreateWindow("GeoRabbit");
-    glutFullScreen();
+  //  glutFullScreen();
+    
     
     /*Registruju se callback funkcije.*/
     glutDisplayFunc(on_display);
@@ -35,4 +38,6 @@ int main(int argc, char **argv){
     return 0;
     
 }
+
+
 

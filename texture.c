@@ -15,7 +15,7 @@ void initialize_t(){
     image = image_init(0,0);
     
     /*Generisemo identifikatore za strukture*/
-    glGenTextures(2,id_tex);
+    glGenTextures(3,id_tex);
     
 
     /* Kreira se tekstura za pozadinu */
@@ -47,6 +47,20 @@ void initialize_t(){
                     GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, 
                     GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB,
+                 image->width, image->height, 0,
+                 GL_RGB, GL_UNSIGNED_BYTE, image->pixels);
+    
+    /* kreira se tekstura za kamen */
+    image_read(image, STONE);
+
+    glBindTexture(GL_TEXTURE_2D, id_tex[2]);
+    glTexParameteri(GL_TEXTURE_2D,
+                    GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D,
+                    GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB,
                  image->width, image->height, 0,
                  GL_RGB, GL_UNSIGNED_BYTE, image->pixels);

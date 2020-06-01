@@ -5,6 +5,7 @@
 #include <math.h>
 #include <stdio.h>
 #include "texture.h"
+#include "stone.h"
 
 
 /* Deklaracije callback funkcija. */

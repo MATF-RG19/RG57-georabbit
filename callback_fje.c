@@ -1,18 +1,5 @@
 #include "callback_fje.h"
 
-float x_plane = 10;
-float y_plane = 1;
-float z_plane = 50;
-
-
-float x_plane2 = 10;
-float y_plane2 = 1;
-float z_plane2 = 150;
-
-
-float lenght = 100;
-
-
 void on_display(void){
 
     /* Brise se prethodni sadrzaj prozora. */
@@ -32,24 +19,25 @@ void on_display(void){
             0, 0, 0,
             0, 1, 0
         );
-
     
+
+    //pozadina se crta
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, id_tex[0]);
     glBegin(GL_POLYGON);
         glNormal3f(0,1,0);
 
         glTexCoord2f(0,0);
-        glVertex3f(-100,0,-100);
+        glVertex3f(-100,0,-200);
 
         glTexCoord2f(5,0);        
-        glVertex3f(100,0,-100);
+        glVertex3f(100,0,-200);
 
         glTexCoord2f(5,5);
-        glVertex3f(100,0,100);
+        glVertex3f(100,0,200);
   
         glTexCoord2f(0,5);
-        glVertex3f(-100,0,100);
+        glVertex3f(-100,0,200);
     glEnd();    
     glDisable(GL_TEXTURE_2D);
     
@@ -62,7 +50,7 @@ void on_display(void){
         glVertex3f(-100,-100,-20);
 
         glTexCoord2f(5,0);        
-        glVertex3f(100,-100,-20);
+        glVertex3f(100,-100,20);
 
         glTexCoord2f(5,5);
         glVertex3f(100,100,-20);
@@ -71,6 +59,9 @@ void on_display(void){
         glVertex3f(-100,100,-20);
     glEnd();    
     glDisable(GL_TEXTURE_2D);
+    
+    /*Iscrtavamo prepreke*/
+    draw_stones();
 
     glutSwapBuffers();
 }
@@ -80,10 +71,46 @@ void on_display(void){
 void on_keyboard(unsigned char key, int x, int y){
 
     switch(key){
+        case 'r':
+        case 'R':
+            animation_parameter = 0;
     
-        case 27:
+        case 'a':
+            //game_ongoing=0;
             /* Zavrsava se program. */
             exit(0);
+        
+            break;
+        case 'S':
+        case 's':
+            /*Start-pokrecemo animaciju*/
+            //Naravno, ako nije vec pokrenuta
+            if(!game_ongoing){
+                animation_parameter = 0;
+                
+                
+                stone_initialize();
+            
+                glClearColor(0,0,0,0);
+                glutDisplayFunc(on_display);
+                
+                game_ongoing = 1;
+                
+                glutTimerFunc(TIMER_INTERVAL, generisi_prepreke, TIMER_ID);
+                
+                glutPostRedisplay();
+            }
+            break;
+        case 'p':
+        case 'P':
+            if(game_ongoing){
+                game_ongoing = 0;
+            }else{
+            
+                game_ongoing = 1;
+                glutTimerFunc(TIMER_INTERVAL, generisi_prepreke, TIMER_ID);
+                
+            }
             break;
     }
 }
