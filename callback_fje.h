@@ -6,12 +6,16 @@
 #include <stdio.h>
 #include "texture.h"
 #include "stone.h"
+#include "igrac.h"
 
 
 /* Deklaracije callback funkcija. */
 void on_display(void);
 void on_keyboard(unsigned char key, int x, int y);
 void on_reshape(int width, int height);
+void on_release(unsigned char key, int x, int y);
+
+
 
 
 #endif

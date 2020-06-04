@@ -20,18 +20,21 @@ int main(int argc, char **argv){
     glutCreateWindow("GeoRabbit");
   //  glutFullScreen();
     
+     /*Inicijalizacija tekstura*/
+    initialize_t();
+    
     
     /*Registruju se callback funkcije.*/
     glutDisplayFunc(on_display);
     glutKeyboardFunc(on_keyboard);
     glutReshapeFunc(on_reshape);
+    glutKeyboardUpFunc(on_release);
     
     /* Obavlja se OpenGL inicijalizacija. */
     glClearColor(0, 0, 0, 0);
     glEnable(GL_DEPTH_TEST);
     
-    /*Inicijalizacija tekstura*/
-    initialize_t();
+   
     
     glutMainLoop();
     

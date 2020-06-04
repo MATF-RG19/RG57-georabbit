@@ -62,7 +62,9 @@ void on_display(void){
     
     /*Iscrtavamo prepreke*/
     draw_stones();
-
+    draw_player();
+    
+  
     glutSwapBuffers();
 }
 
@@ -75,7 +77,7 @@ void on_keyboard(unsigned char key, int x, int y){
         case 'R':
             animation_parameter = 0;
     
-        case 'a':
+        case 27:
             //game_ongoing=0;
             /* Zavrsava se program. */
             exit(0);
@@ -112,6 +114,19 @@ void on_keyboard(unsigned char key, int x, int y){
                 
             }
             break;
+        case 'a':
+        case 'A':
+            /*Igrac se pomera u levo.Postavlja se indikator
+             za on_release funkciju*/
+            player_moves[0] = 1;
+            glutPostRedisplay();
+            break;
+        case 'D':
+        case 'd':
+            /*Pomeranje u desno,analogno kao i za levo*/
+            player_moves[1] = 1;
+            glutPostRedisplay();
+            break;
     }
 }
 
@@ -126,4 +141,19 @@ void on_reshape(int width, int height)
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     gluPerspective(30, (float) width / height, 0.1, 100);
+}
+
+void on_release(unsigned char key, int x, int y){
+
+    switch(key){
+    
+        case 'a':
+        case 'A':
+            player_moves[0] -= 1;
+            break;
+        case 'd':
+        case 'D':
+            player_moves[1] -=1;
+            break;
+    }
 }

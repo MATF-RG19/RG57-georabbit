@@ -37,9 +37,9 @@ void generisi_prepreke(int value){
     
     if(value != TIMER_ID)
         return;
-    else
-        animation_parameter++;
-    
+//     else
+//         animation_parameter++;
+//     
     int k;
     int i = -1;
     for(k=0; k< NUMBER_OF_STONES;k++){
@@ -50,8 +50,8 @@ void generisi_prepreke(int value){
  
         if(stones[k].z >= 60){
         
-            //pamtimo poziciju igraca 
-            i = k;
+//             //pamtimo poziciju igraca 
+             i = k;
             stones[i].z = -100;
             
         }
@@ -63,19 +63,12 @@ void generisi_prepreke(int value){
                  glutPostRedisplay();
          }
          
-        //POPRAVI
-        /*Kada prepreka prodje igraca, pravimo novu prepreku.
-         Mora da ih ima 10 u jednom trenutku.*/
-        
-//         if(i!=-1){
-//         
-//             stones[i].z = -100;
-//         }
-//         
+ 
         glutPostRedisplay();
         if(game_ongoing){
             glutTimerFunc(TIMER_INTERVAL, generisi_prepreke, TIMER_ID);
         }
+         
         
     }
     
