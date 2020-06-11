@@ -1,12 +1,13 @@
 #include "igrac.h"
 
+float x_player = 0;
+float y_player = 0.8;
+float z_player = 40;
+int player_moves[] = {0, 0};
+    
 
 void draw_player(){
-    x_player = 0;
-    y_player = 0.8;
-    z_player = 40;
-    player_moves[0] = 0;
-    player_moves[1] = 0;
+    
     
     
     GLfloat material_diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
@@ -26,7 +27,7 @@ void draw_player(){
     glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, material_diffuse);
     glPushMatrix();
     glTranslatef(x_player, y_player + 1.5, z_player);
-    glutSolidSphere(1, 20, 20);
+    glutSolidSphere(2, 20, 20);
     glPopMatrix();
     
 
@@ -34,9 +35,10 @@ void draw_player(){
 
 void go_player(){
 
-    if( player_moves[0] && x_player < 4.5 )
-        x_player += 0.2;
+    //18 - da bi mogao i sa strane da pobegne ako ne moze izmedju prepreka da prodje
+    if( player_moves[0] && x_player > -18 )
+        x_player -= 0.4;
     
-    if( player_moves[1] && x_player > -4.5 )
-        x_player -= 0.2;
+    if( player_moves[1] && x_player < 18 )
+        x_player += 0.4;
 }

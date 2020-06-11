@@ -1,5 +1,9 @@
 #include "callback_fje.h"
 
+int game_ongoing;
+float animation_parameter;
+int d;
+
 void on_display(void){
 
     /* Brise se prethodni sadrzaj prozora. */
@@ -61,8 +65,10 @@ void on_display(void){
     glDisable(GL_TEXTURE_2D);
     
     /*Iscrtavamo prepreke*/
+   
     draw_stones();
     draw_player();
+    
     
   
     glutSwapBuffers();
@@ -89,16 +95,14 @@ void on_keyboard(unsigned char key, int x, int y){
             //Naravno, ako nije vec pokrenuta
             if(!game_ongoing){
                 animation_parameter = 0;
-                
-                
-                stone_initialize();
+              
             
                 glClearColor(0,0,0,0);
                 glutDisplayFunc(on_display);
                 
                 game_ongoing = 1;
                 
-                glutTimerFunc(TIMER_INTERVAL, generisi_prepreke, TIMER_ID);
+                glutTimerFunc(TIMER_INTERVAL, on_timer, TIMER_ID);
                 
                 glutPostRedisplay();
             }
@@ -110,7 +114,7 @@ void on_keyboard(unsigned char key, int x, int y){
             }else{
             
                 game_ongoing = 1;
-                glutTimerFunc(TIMER_INTERVAL, generisi_prepreke, TIMER_ID);
+                glutTimerFunc(TIMER_INTERVAL, on_timer, TIMER_ID);
                 
             }
             break;
@@ -156,4 +160,49 @@ void on_release(unsigned char key, int x, int y){
             player_moves[1] -=1;
             break;
     }
+}
+
+void on_timer(int value){
+
+    if(!game_ongoing)
+        return;
+    
+    if(value != TIMER_ID)
+        return;
+    
+    //stone.h
+    generisi_prepreke();
+    
+    //igrac.h
+    go_player();
+    
+    //callback_fje.h
+    check_collision();
+    
+    glutPostRedisplay();
+    if(game_ongoing){
+            glutTimerFunc(TIMER_INTERVAL, on_timer, TIMER_ID);
+        }
+}
+
+
+
+void check_collision(){
+
+    
+    //proverava razdaljinu sa svakom preprekom
+    
+    for(int i=0;i<NUMBER_OF_STONES;i++){
+   
+        d= rastojanje(stones[i]);
+        //printf("kamen : %d    d : %d\n",i,d);
+
+        if(d){
+            printf("GAME OVER!\n");
+            game_ongoing = 0;
+            animation_parameter=0;
+            glutPostRedisplay();
+        }
+    }
+
 }

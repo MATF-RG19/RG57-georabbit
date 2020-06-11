@@ -15,14 +15,15 @@ int main(int argc, char **argv){
     glutInitDisplayMode(GLUT_RGB | GLUT_DEPTH | GLUT_DOUBLE);
     
    
+    
     /*Inicijalizacija prozora*/
     glutInitWindowPosition(0,0);
     glutCreateWindow("GeoRabbit");
-  //  glutFullScreen();
+    glutFullScreen();
     
      /*Inicijalizacija tekstura*/
     initialize_t();
-    
+    stone_initialize();
     
     /*Registruju se callback funkcije.*/
     glutDisplayFunc(on_display);

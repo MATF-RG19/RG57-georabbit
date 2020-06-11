@@ -4,10 +4,10 @@
 #include <GL/glut.h>
 
 /*koordinate igraca*/
-float x_player ;
-float y_player ;
-float z_player ;
-int player_moves[2] ;
+extern float x_player ;
+extern float y_player ;
+extern float z_player ;
+extern int player_moves[2]; 
 
 void draw_player();
 
