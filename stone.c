@@ -101,11 +101,11 @@ int rastojanje(stone s){
     //ako je udario u ivicu prepreke onda true
     if(
         (
-        (s.x + 4 <= x_player + 1.7 && s.x + 7 >= x_player + 2) || 
-        (s.x - 4 >= x_player - 1.7 && s.x - 7 <= x_player - 2)
+        (s.x + 4 <= x_player + 1.7 && s.x + 7 >= x_player + 1.7) || 
+        (s.x - 4 >= x_player - 1.7 && s.x - 7 <= x_player - 1.7)
         ||
-        (s.x - 4 >= x_player + 1.7 && s.x - 7 <= x_player + 2) || 
-        (s.x + 4 <= x_player - 1.7 && s.x + 7 >= x_player - 2)
+        (s.x - 4 >= x_player + 1.7 && s.x - 7 <= x_player + 1.7) || 
+        (s.x + 4 <= x_player - 1.7 && s.x + 7 >= x_player - 1.7)
         ||
         (s.x + 4 <= x_player && s.x + 7 >= x_player)
         ||
