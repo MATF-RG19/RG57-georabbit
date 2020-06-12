@@ -2,6 +2,9 @@
 
 //ubrzanje prepreka
 float speed_parametar = 0;
+float r  = 1.7;
+float r7 = 4;
+float R7 = 7;
 
 /*
  * -niz koji sadrzi elemente strukture stone
@@ -69,7 +72,7 @@ void draw_stones(){
              * spoljasnji poluprecnik 6
              * vrsta mnogougla sedmougao
             */
-            gluDisk(quadric_object, 4, 7, 7,7);
+            gluDisk(quadric_object, r7, R7, 7,7);
         glPopMatrix();
 
     }
@@ -101,15 +104,15 @@ int rastojanje(stone s){
     //ako je udario u ivicu prepreke onda true
     if(
         (
-        (s.x + 4 <= x_player + 1.7 && s.x + 7 >= x_player + 1.7) || 
-        (s.x - 4 >= x_player - 1.7 && s.x - 7 <= x_player - 1.7)
+        (s.x + r7 <= x_player + r && s.x + R7 >= x_player + r) || 
+        (s.x - r7 >= x_player - r && s.x - R7 <= x_player - r)
         ||
-        (s.x - 4 >= x_player + 1.7 && s.x - 7 <= x_player + 1.7) || 
-        (s.x + 4 <= x_player - 1.7 && s.x + 7 >= x_player - 1.7)
+        (s.x - r7 >= x_player + r && s.x - R7 <= x_player + r) || 
+        (s.x + r7 <= x_player - r && s.x + R7 >= x_player - r)
         ||
-        (s.x + 4 <= x_player && s.x + 7 >= x_player)
+        (s.x + r7 <= x_player && s.x + R7 >= x_player)
         ||
-        (s.x - 4 >= x_player && s.x - 7 <= x_player)
+        (s.x - r7 >= x_player && s.x - R7 <= x_player)
     )
         &&  (s.z >=38 && s.z <= 42)
     )

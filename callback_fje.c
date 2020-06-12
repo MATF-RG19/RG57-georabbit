@@ -278,8 +278,8 @@ void check_collision(){
         /*ako je igrac nije udario u prepreku i zaobisao je onda povecavamo score*/
         
         if((stones[i].z >=38 && stones[i].z <= 42) && 
-            (x_player + 1.7 < stones[i].x + 3) &&
-            (x_player - 1.7 > stones[i].x - 3)
+            (x_player + r < stones[i].x + r7) &&
+            (x_player - r > stones[i].x - r7)
         ){
             score += 1;
             if(score % 10 == 0)

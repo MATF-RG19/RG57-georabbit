@@ -11,6 +11,7 @@
 #define y_const 2
 
 
+
 typedef struct stone_struct{
     int x;
     float z; 
@@ -22,6 +23,13 @@ typedef struct stone_struct{
 
 extern stone stones[NUMBER_OF_STONES];
 extern float speed_parametar;
+//poluprecnik lopte
+extern float r;
+
+//unutrasnji poluprecnik sedmougla
+extern float r7;
+//spoljasnji poluprecnik sedmougla
+extern float R7;
 
 
 void make_stone(int i); /* stvaranje jednog kamena na poziji i u nizu stones*/
