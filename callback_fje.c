@@ -22,7 +22,8 @@ void on_display(void){
     //prikaz skora trenutnog
     
     //podesavanje boje
-    glColor4f(1.0, 1.0, 1.0 , 1.0);
+    GLfloat light_diffuse2[] = {0.0, 0.0, 0.0, 1.0};
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse2);
     //podesavanje pozicije
     glRasterPos3f(-2, 13, 5);
     
@@ -94,12 +95,14 @@ void on_display(void){
     
         //game over prikaz
             /**************************************/
-            glColor4f(1.0, 1.0, 1.0 , 1.0);
+            GLfloat light_diffuse3[] = {0.0, 0.0, 0.0, 1.0};
+            glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse3);
             //podesavanje pozicije
             glRasterPos3f(-2, 10, 5);
             
             char game_over_string[40];
             sprintf(game_over_string, "GAME OVER!");
+            
             
             int l = (int)strlen(game_over_string);
             
@@ -108,7 +111,18 @@ void on_display(void){
             
                 glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18,game_over_string[i]);
                 
-            }   
+            }
+            glRasterPos3f(-3, 9, 5);
+            char press_string[40];
+            sprintf(press_string, "Press r/R to restart!");
+            l = (int)strlen(press_string);
+            
+            for(int i = 0; i < l; i++){
+                
+            
+                glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18,press_string[i]);
+                
+            }
     }
     
     
@@ -145,6 +159,8 @@ void on_keyboard(unsigned char key, int x, int y){
         case 's':
             /*Start-pokrecemo animaciju*/
             //Naravno, ako nije vec pokrenuta
+            //ili ako smo izgubili pa da ne bi samo nastavio
+            //da igra
             if(!game_ongoing && animation_ind == 0){
 
                           
@@ -261,10 +277,13 @@ void check_collision(){
         
         /*ako je igrac nije udario u prepreku i zaobisao je onda povecavamo score*/
         
-        if(z_player < stones[i].z ){
+        if((stones[i].z >=38 && stones[i].z <= 42) && 
+            (x_player + 1.7 < stones[i].x + 3) &&
+            (x_player - 1.7 > stones[i].x - 3)
+        ){
             score += 1;
             if(score % 10 == 0)
-                speed_parametar += 0.01;
+                speed_parametar += 0.02;
         }
     }
 

@@ -28,7 +28,40 @@ void draw_player(){
     glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, material_diffuse);
     glPushMatrix();
     glTranslatef(x_player, y_player + 1.5, z_player);
-    glutSolidSphere(2, 20, 20);
+    glutSolidSphere(1.7, 20, 20);
+    
+    glPushMatrix();
+    glTranslatef(0,1.7,0);
+    glutSolidSphere(1,10,20);
+    glPopMatrix();
+    
+    GLfloat light_diffuse1[] = {1.0, 1.0, 1.0, 1.0};
+    glLightfv(GL_LIGHT0, GL_DIFFUSE,light_diffuse1 );
+    
+    glPushMatrix();
+    glTranslatef(0,-0.5,2);
+    glutSolidSphere(0.5,20,20);
+    glPopMatrix();
+    
+    glPushMatrix();
+    glTranslatef(-0.5,2.9,0);
+    glRotatef(90,1,0,0);
+    glutSolidCone(0.4,1,10,20);
+    
+    glRotatef(180,1,0,0);
+    glutSolidCone(0.4,0.6,10,20);
+    glPopMatrix();
+    
+    glPushMatrix();
+    glTranslatef(0.5,2.9,0);
+    glRotatef(90,1,0,0);
+    glutSolidCone(0.4,1,10,20);
+    
+    glRotatef(180,1,0,0);
+    glutSolidCone(0.4,0.6,10,20);
+    glPopMatrix();
+    
+    
     glPopMatrix();
     
 
@@ -48,6 +81,6 @@ void go_player(){
     }
     
      //igrac se ubrzava u zavisnosti od scora
-        if(score % 10 == 0)
+        if(score % 100 == 0)
             speed_player += 0.004;
 }
