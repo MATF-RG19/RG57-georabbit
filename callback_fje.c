@@ -260,30 +260,73 @@ void check_collision(){
     //proverava razdaljinu sa svakom preprekom
     
     for(int i=0;i<NUMBER_OF_STONES;i++){
-   
-        d= rastojanje(stones[i]);
-        //printf("kamen : %d    d : %d\n",i,d);
-
-        if(d){
-            printf("GAME OVER!\n");
-            //postavlja se indikator da je izgubio 
-            //zbog prikaza "GAME OVER!" poruke
-            animation_ind = 1;
+        if(i == poz1 || i == poz2){
+            if((stones[i].z >=38 && stones[i].z <= 42)
+                &&
+                (
+                    (
+                        (stones[i].x + R7 >= x_player + r
+                        &&
+                        stones[i].x - R7 <= x_player - r)
+                        
+                        )
+                    ||
+                    (
+                        stones[i].x - R7 <= x_player + r
+                        &&
+                        stones[i].x + R7 >= x_player + r
+                    )
+                    ||
+                    (   stones[i].x + R7 >= x_player - r
+                        &&
+                        stones[i].x - R7 <= x_player -r
+                    )
+                )
+            ){
             
-            /***************************************/
-            game_ongoing = 0;
-            glutPostRedisplay();
-        }
+                printf("GAME OVER!\n");
+                //postavlja se indikator da je izgubio 
+                //zbog prikaza "GAME OVER!" poruke
+                animation_ind = 1;
+                
+                /***************************************/
+                game_ongoing = 0;
+                glutPostRedisplay();
+            }
+            
+        }else{
         
-        /*ako je igrac nije udario u prepreku i zaobisao je onda povecavamo score*/
-        
-        if((stones[i].z >=38 && stones[i].z <= 42) && 
-            (x_player + r < stones[i].x + r7) &&
-            (x_player - r > stones[i].x - r7)
-        ){
-            score += 1;
-            if(score % 10 == 0)
-                speed_parametar += 0.02;
+   
+            d= rastojanje(stones[i]);
+            //printf("kamen : %d    d : %d\n",i,d);
+
+            if(d){
+                printf("GAME OVER!\n");
+                //postavlja se indikator da je izgubio 
+                //zbog prikaza "GAME OVER!" poruke
+                animation_ind = 1;
+                
+                /***************************************/
+                game_ongoing = 0;
+                glutPostRedisplay();
+            }
+            
+            /*ako je igrac nije udario u prepreku i zaobisao je onda povecavamo score*/
+            
+            if((stones[i].z >=38 && stones[i].z <= 42)
+            
+                && 
+                (x_player + r < stones[i].x + r7) &&
+                (x_player - r > stones[i].x - r7)
+            ){
+                score += 1;
+                if(score < 50)
+                    speed_parametar += 0.005;
+                if(score > 50 && score < 150)
+                    speed_parametar += 0.01;
+                
+                    
+            }
         }
     }
 

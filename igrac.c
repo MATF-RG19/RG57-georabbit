@@ -81,6 +81,8 @@ void go_player(){
     }
     
      //igrac se ubrzava u zavisnosti od scora
-        if(score % 100 == 0)
-            speed_player += 0.004;
+        if(score < 50)
+            speed_player += 0.001;
+        if(score > 50 && score < 100)
+            speed_player += 0.002;
 }

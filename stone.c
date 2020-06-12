@@ -5,6 +5,10 @@ float speed_parametar = 0;
 float r  = 1.7;
 float r7 = 4;
 float R7 = 7;
+int poz1;
+int poz2;
+
+
 
 /*
  * -niz koji sadrzi elemente strukture stone
@@ -15,6 +19,10 @@ stone stones[NUMBER_OF_STONES];
 
 /*prvih 10 inicijalizuje kada se pokrene animacija*/
 void stone_initialize(){
+   poz1 = rand() % 10;
+   poz2 = rand() % 10;
+   poz2 = poz2 == poz1 ? (poz1 + 5) % 10 : poz2;
+   
    for(int i=0;i<NUMBER_OF_STONES;i++){
         stones[i].z = 25 - 23*i;
         make_stone(i);
@@ -61,20 +69,27 @@ void draw_stones(){
 
 
     for(j=0;j<NUMBER_OF_STONES;j++){
+    
         c = stones[j];
 
         glBindTexture(GL_TEXTURE_2D, id_tex[2]);
         glPushMatrix();
-            /*pozicija prepreke
-             */
-            glTranslatef(c.x,y_const,c.z);  
+        /*pozicija prepreke
+        */
+        glTranslatef(c.x,y_const,c.z); 
+            
+        if(j == poz1 || j == poz2){
+            gluDisk(quadric_object, 0, R7, 7,7);
+            
+        }else{
             /*unitrasnji poluprecnik 3
              * spoljasnji poluprecnik 6
              * vrsta mnogougla sedmougao
             */
             gluDisk(quadric_object, r7, R7, 7,7);
+        }
+        
         glPopMatrix();
-
     }
     
     glDisable(GL_TEXTURE_2D);

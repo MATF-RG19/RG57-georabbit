@@ -4,6 +4,7 @@ ___
 ### :memo: Opis igrice:
 "GeoRabbit" je igrica ciji je cilj da igrac sto duze ostane u zuvotu. Igrac izbegava prepreke i ako udari u prepreku igra je gotova. Dobija bonuse kada prodje kroz prepreku.
 Brzina se povecava shodno rezultatu.
+
 ___
 
 ### :video_game: Komande igrice:

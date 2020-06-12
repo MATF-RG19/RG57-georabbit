@@ -31,6 +31,13 @@ extern float r7;
 //spoljasnji poluprecnik sedmougla
 extern float R7;
 
+//pozicija od 0 do 9 koja ce da bude sigurica da ne moze //u beskonacno da igra
+//na toj poziciji nece biti probuseni sedmougao
+//pa samim tim igrac ne moze da prodje kroz prepreku
+extern int poz1;
+//isto kao poz1
+extern int poz2;
+
 
 void make_stone(int i); /* stvaranje jednog kamena na poziji i u nizu stones*/
 void stone_initialize(); 
@@ -39,6 +46,8 @@ void draw_stones(); /* iscrtava kamenje po vrstama */
 
 void generisi_prepreke();
 /*kretanje prepreka*/
+
+
 
 //rastojanje od igraca(udario ili nije)
 int rastojanje(stone s);
