@@ -1,19 +1,14 @@
 #include "callback_fje.h"
 
 int game_ongoing;
-float animation_parameter;
+int animation_ind = 0;
 int d;
+int score = 0;
 
 void on_display(void){
 
     /* Brise se prethodni sadrzaj prozora. */
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-  
-  
-     /*Odredjuje se pozicija svetla*/
-    GLfloat light_position[] = {0,0,0,1};
-    glLightfv(GL_LIGHT0, GL_POSITION, light_position);
-    glEnable(GL_LIGHT0);
     
      /* Podesava se tacka pogleda. */
     glMatrixMode(GL_MODELVIEW);
@@ -24,6 +19,32 @@ void on_display(void){
             0, 1, 0
         );
     
+    //prikaz skora trenutnog
+    
+    //podesavanje boje
+    glColor4f(1.0, 1.0, 1.0 , 1.0);
+    //podesavanje pozicije
+    glRasterPos3f(-2, 13, 5);
+    
+    char score_string[40] = "SCORE: ";
+    char score_int[40];
+    
+    sprintf(score_int, " %d ", score);
+    strcat(score_string, score_int);
+    
+    int len = (int)strlen(score_string);
+    
+    for(int i = 0; i < len; i++){
+        
+    
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18,score_string[i]);
+        
+    }   
+    
+     /*Odredjuje se pozicija svetla*/
+    GLfloat light_position[] = {0,0,0,1};
+    glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+    glEnable(GL_LIGHT0);
 
     //pozadina se crta
     glEnable(GL_TEXTURE_2D);
@@ -69,6 +90,28 @@ void on_display(void){
     draw_stones();
     draw_player();
     
+    if(animation_ind){
+    
+        //game over prikaz
+            /**************************************/
+            glColor4f(1.0, 1.0, 1.0 , 1.0);
+            //podesavanje pozicije
+            glRasterPos3f(-2, 10, 5);
+            
+            char game_over_string[40];
+            sprintf(game_over_string, "GAME OVER!");
+            
+            int l = (int)strlen(game_over_string);
+            
+            for(int i = 0; i < l; i++){
+                
+            
+                glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18,game_over_string[i]);
+                
+            }   
+            
+    }
+    
     
   
     glutSwapBuffers();
@@ -81,10 +124,20 @@ void on_keyboard(unsigned char key, int x, int y){
     switch(key){
         case 'r':
         case 'R':
-            animation_parameter = 0;
+            game_ongoing = 0;
+            animation_ind = 0;
+            speed_parametar = 0;
+            stone_initialize();
+            speed_player = 0;
+            x_player = 0;
+            y_player = 0.8;
+            z_player = 40;
+            draw_player();
+            score = 0;
+            glutPostRedisplay();
+            break;
     
         case 27:
-            //game_ongoing=0;
             /* Zavrsava se program. */
             exit(0);
         
@@ -94,12 +147,10 @@ void on_keyboard(unsigned char key, int x, int y){
             /*Start-pokrecemo animaciju*/
             //Naravno, ako nije vec pokrenuta
             if(!game_ongoing){
-                animation_parameter = 0;
-              
-            
+                          
                 glClearColor(0,0,0,0);
                 glutDisplayFunc(on_display);
-                
+                animation_ind = 0;
                 game_ongoing = 1;
                 
                 glutTimerFunc(TIMER_INTERVAL, on_timer, TIMER_ID);
@@ -199,9 +250,21 @@ void check_collision(){
 
         if(d){
             printf("GAME OVER!\n");
+            //postavlja se indikator da je izgubio 
+            //zbog prikaza "GAME OVER!" poruke
+            animation_ind = 1;
+            
+            /***************************************/
             game_ongoing = 0;
-            animation_parameter=0;
             glutPostRedisplay();
+        }
+        
+        /*ako je igrac nije udario u prepreku i zaobisao je onda povecavamo score*/
+        
+        if(z_player < stones[i].z){
+            score += 1;
+            if(score % 10 == 0)
+                speed_parametar += 0.01;
         }
     }
 

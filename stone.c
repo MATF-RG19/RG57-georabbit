@@ -1,7 +1,7 @@
 #include "stone.h"
 
-//ubrzanje
-float speed_parametar = 0.01;
+//ubrzanje prepreka
+float speed_parametar = 0;
 
 /*
  * -niz koji sadrzi elemente strukture stone
@@ -13,12 +13,11 @@ stone stones[NUMBER_OF_STONES];
 /*prvih 10 inicijalizuje kada se pokrene animacija*/
 void stone_initialize(){
    for(int i=0;i<NUMBER_OF_STONES;i++){
-        stones[i].z = 25 - 20*i;
+        stones[i].z = 25 - 23*i;
         make_stone(i);
         
    }
 }
-
 
 void generisi_prepreke(){
 
@@ -27,13 +26,18 @@ void generisi_prepreke(){
     for(k=0; k< NUMBER_OF_STONES;k++){
     
         /*pomeramo prepreke sve ka igracu*/
-        stones[k].z=stones[k].z+0.4;
+        stones[k].z=stones[k].z+0.4+speed_parametar;
+        
         
         if(stones[k].z >= 60){
         
              //pamtimo poziciju igraca 
              i = k;
+            //saljemo stone na kraj staze
             stones[i].z = -100;
+            /*opet random da izabere x koordinatu da ne bi stalno vrteo jedan te isti niz
+             */
+            make_stone(i);
             
         }
     }
@@ -56,10 +60,15 @@ void draw_stones(){
     for(j=0;j<NUMBER_OF_STONES;j++){
         c = stones[j];
 
-        /* crta dve komete u jednoj liniji */
         glBindTexture(GL_TEXTURE_2D, id_tex[2]);
         glPushMatrix();
+            /*pozicija prepreke
+             */
             glTranslatef(c.x,y_const,c.z);  
+            /*unitrasnji poluprecnik 3
+             * spoljasnji poluprecnik 6
+             * vrsta mnogougla sedmougao
+            */
             gluDisk(quadric_object, 3, 6, 7,7);
         glPopMatrix();
 
@@ -74,15 +83,12 @@ void make_stone(int i){
     //prazna_poz je 0 ili 1
     prazna_poz= rand() % 2;
     
-   
-
-    //Promeni x ako nije ok 10
     switch(prazna_poz){
         case 0:
-            x = 6;
+            x = 5;
             break;
         case 1:
-            x = -6;
+            x = -5;
     }
     
     /*Pozicija kamena*/

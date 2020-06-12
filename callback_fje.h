@@ -4,6 +4,7 @@
 #include <GL/glut.h>
 #include <math.h>
 #include <stdio.h>
+#include <string.h>
 #include "texture.h"
 #include "stone.h"
 #include "igrac.h"
@@ -12,7 +13,9 @@
 #define TIMER_INTERVAL 50
 
 extern int game_ongoing;
-extern float animation_parameter;
+//indikator za game over prikaz
+extern int animation_ind;
+extern int score;
 
 
 /* Deklaracije callback funkcija. */
@@ -21,6 +24,7 @@ void on_keyboard(unsigned char key, int x, int y);
 void on_reshape(int width, int height);
 void on_release(unsigned char key, int x, int y);
 void on_timer(int);
+//funkcija za proveravanje kolizije
 void check_collision(void);
 
 #endif

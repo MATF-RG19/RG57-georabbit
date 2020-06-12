@@ -4,6 +4,7 @@ float x_player = 0;
 float y_player = 0.8;
 float z_player = 40;
 int player_moves[] = {0, 0};
+float speed_player = 0;
     
 
 void draw_player(){
@@ -35,10 +36,18 @@ void draw_player(){
 
 void go_player(){
 
-    //18 - da bi mogao i sa strane da pobegne ako ne moze izmedju prepreka da prodje
-    if( player_moves[0] && x_player > -18 )
-        x_player -= 0.4;
+    //11 - da bi mogao i sa strane da pobegne ako ne moze izmedju prepreka da prodje
+    if( player_moves[0] && x_player > -11 ){
+        x_player -= (0.4+speed_player);
+            
+    }
     
-    if( player_moves[1] && x_player < 18 )
-        x_player += 0.4;
+    if( player_moves[1] && x_player < 11 ){
+        x_player += (0.4+speed_player);
+    
+    }
+    
+     //igrac se ubrzava u zavisnosti od scora
+        if(score % 10 == 0)
+            speed_player += 0.004;
 }
