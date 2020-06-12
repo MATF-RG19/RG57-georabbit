@@ -109,16 +109,6 @@ void on_display(void){
                 glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18,game_over_string[i]);
                 
             }   
-            
-            glRasterPos3f(-2, 13, 5);
-            
-            for(int i = 0; i < len; i++){
-        
-            
-                glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18,score_string[i]);
-                
-            }
-            score = 0;
     }
     
     
@@ -155,7 +145,8 @@ void on_keyboard(unsigned char key, int x, int y){
         case 's':
             /*Start-pokrecemo animaciju*/
             //Naravno, ako nije vec pokrenuta
-            if(!game_ongoing){
+            if(!game_ongoing && animation_ind == 0){
+
                           
                 glClearColor(0,0,0,0);
                 glutDisplayFunc(on_display);
@@ -265,20 +256,12 @@ void check_collision(){
             
             /***************************************/
             game_ongoing = 0;
-            speed_parametar = 0;
-            stone_initialize();
-            speed_player = 0;
-            x_player = 0;
-            y_player = 0.8;
-            z_player = 40;
-            draw_player();
-            glutPostRedisplay();
             glutPostRedisplay();
         }
         
         /*ako je igrac nije udario u prepreku i zaobisao je onda povecavamo score*/
         
-        if(z_player < stones[i].z){
+        if(z_player < stones[i].z ){
             score += 1;
             if(score % 10 == 0)
                 speed_parametar += 0.01;

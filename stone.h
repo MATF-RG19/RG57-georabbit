@@ -8,7 +8,7 @@
 
 
 #define NUMBER_OF_STONES 10
-#define y_const 4
+#define y_const 2
 
 
 typedef struct stone_struct{

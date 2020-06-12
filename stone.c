@@ -69,7 +69,7 @@ void draw_stones(){
              * spoljasnji poluprecnik 6
              * vrsta mnogougla sedmougao
             */
-            gluDisk(quadric_object, 3, 6, 7,7);
+            gluDisk(quadric_object, 4, 6, 7,7);
         glPopMatrix();
 
     }
@@ -97,8 +97,10 @@ void make_stone(int i){
 }
 
 int rastojanje(stone s){
-        
-    if(s.x + 6 >= x_player && s.x -6 <= x_player && s.z >=38 && s.z <= 42)
+    
+    //ako je udario u ivicu prepreke onda true
+//     if(s.x + 4 <= x.player && s.x - 4 >= x_player)
+        if(s.x + 6 >= x_player && s.x -6 <= x_player && s.z >=38 && s.z <= 42)
         return 1;
     
     return 0;
