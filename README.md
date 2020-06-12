@@ -9,6 +9,7 @@ ___
 Pokrenuti igricu na <kbd>S/s</kbd> <br>
 <kbd>A/a</kbd> igrac skreće levo <br>
 <kbd>D/d</kbd> igrac skreće desno <br>
+<kbd>R/r</kbd> restartuje igricu <br>
 <kbd>ESC</kbd> izlazi iz igrice 
 ___
 
